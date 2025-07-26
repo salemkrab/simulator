@@ -1,0 +1,56 @@
+# IntelliJ, VSCode, Eclipse
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+*.settings/
+
+# Maven / Gradle
+target/
+build/
+out/
+
+# Logs
+*.log
+
+# Eclipse specific
+.metadata/
+bin/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE scratch files
+*.swp
+
+# Maven wrapper
+.mvn/
+#mvnw
+#mvnw.cmd
+
+# Gradle wrapper (si utilisé)
+.gradle/
+gradle-app.setting
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Optional: temporary files
+tmp/
+temp/
+
+# Generated sources
+generated-sources/
+generated-test-sources/
+
+# Coverage reports
+coverage/
+jacoco.exec
+target/site/jacoco/
+
+# Sonar
+.sonar/
+
+# Credentials (if any)
+credentials.properties
