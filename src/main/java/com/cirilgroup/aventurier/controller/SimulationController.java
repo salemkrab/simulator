@@ -2,6 +2,7 @@ package com.cirilgroup.aventurier.controller;
 
 import com.cirilgroup.aventurier.exceptions.SimulationException;
 import com.cirilgroup.aventurier.model.Position;
+import com.cirilgroup.aventurier.service.ISimulationService;
 import com.cirilgroup.aventurier.service.SimulationService;
 
 import java.nio.file.Path;
@@ -14,7 +15,7 @@ import java.nio.file.Path;
  * @version 1.0
  */
 public class SimulationController {
-    private final SimulationService service;
+    private final ISimulationService service;
 
     public SimulationController(SimulationService service) {
         this.service = service;

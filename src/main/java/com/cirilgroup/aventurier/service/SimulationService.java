@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  * @author Ciril Group
  * @version 1.0
  */
-public class SimulationService {
+public class SimulationService implements ISimulationService {
     private final MapLoader mapLoader;
     private final MoveLoader moveLoader;
     private Map                 map          = new Map(0, 0, new char[0][0]);        // stub
