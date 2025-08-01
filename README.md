@@ -5,7 +5,6 @@ Ce projet est un simulateur de déplacements d’un aventurier sur une carte, av
 ## Description
 Une application console Java qui simule le déplacement d'un aventurier sur une carte, en respectant obstacles et limites.
 
-
 ## Structure du projet
 
 ```
@@ -41,6 +40,13 @@ src/
 - Java 8+
 - Maven
 
+## Utilisation de Spring IoC
+
+Le projet utilise **Spring IoC** pour l’injection automatique des dépendances.  
+Les classes principales (`SimulationController`, `MapService`, `MoveService`, `SimulationService`, `ConsoleView`, etc.) sont annotées avec `@Component` ou `@Service`.  
+La configuration du scan des composants se fait via `@ComponentScan` dans la classe de configuration Spring (`SpringConfig`).  
+Dans le main, le contexte Spring est instancié et les beans sont récupérés automatiquement, ce qui garantit une architecture découplée et facilement testable.
+
 ## Lancer le projet
 
 ```sh
@@ -55,14 +61,16 @@ Le projet utilise plusieurs outils de qualité logicielle configurés dans le [`
 - **Checkstyle** : Vérifie le respect des conventions de style de code (Google Java Style).
 - **PMD** : Analyse statique pour détecter les mauvaises pratiques, code mort, variables inutilisées, etc. Règles personnalisées dans [`config/pmd/ruleset.xml`](config/pmd/ruleset.xml).
 - **SpotBugs** : Détection de bugs potentiels dans le code Java.
-- **JaCoCo** : Génération de rapports de couverture de tests unitaires.
+- **JaCoCo** : Génération de rapports de couverture de tests unitaires.  
+  > **Note :** Le projet impose un seuil de couverture de code de **80%** via JaCoCo.  
+  > Si la couverture est inférieure à ce seuil, le build Maven échouera (`mvn verify`).
 
 Ces outils sont exécutés automatiquement lors du cycle Maven (`mvn verify`).
 
 Les rapports sont générés dans target/site :
 
-target/site/jacoco/index.html → couverture de code
-target/site/checkstyle-result.xml, spotbugs.html, pmd.html → analyses statiques
+- `target/site/jacoco/index.html` → couverture de code
+- `target/site/checkstyle-result.xml`, `spotbugs.html`, `pmd.html` → analyses statiques
 
 ## Tests
 
@@ -72,9 +80,8 @@ Des tests unitaires et d’intégration sont présents dans [`src/test/java`](sr
 
 Une intégration continue est configurée via GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) pour compiler, tester et vérifier la qualité du code à chaque push ou pull request.
 
-
 ## Documentation
-JavaDoc généré dans target/site/apidocs (Maven) ou build/docs/javadoc (Gradle).
+JavaDoc généré dans `target/site/apidocs` (Maven) ou `build/docs/javadoc` (Gradle).
 
 ---
 

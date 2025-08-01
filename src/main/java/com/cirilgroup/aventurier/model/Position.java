@@ -7,6 +7,7 @@ import java.util.Objects;
  * avec des coordonnées x et y.
  * Cette classe est immuable et fournit des méthodes
  * pour accéder aux coordonnées.
+ * 
  * @author Ciril Group
  * @version 1.0
  */
@@ -29,6 +30,7 @@ public class Position {
 
     /**
      * Déplace la position actuelle dans la direction spécifiée.
+     * 
      * @param dir La direction dans laquelle déplacer la position.
      * @return Une nouvelle instance de Position avec les coordonnées mises à jour.
      */
@@ -38,8 +40,10 @@ public class Position {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Position)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Position))
+            return false;
         Position pos = (Position) o;
         return x == pos.x && y == pos.y;
     }

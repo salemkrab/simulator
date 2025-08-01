@@ -1,72 +1,42 @@
 package com.cirilgroup.aventurier.service;
 
-import com.cirilgroup.aventurier.io.MapLoader;
-import com.cirilgroup.aventurier.io.MoveLoader;
-import com.cirilgroup.aventurier.model.*;
+import com.cirilgroup.aventurier.model.Adventurer;
+import com.cirilgroup.aventurier.model.Direction;
+import com.cirilgroup.aventurier.model.Map;
+import com.cirilgroup.aventurier.model.MoveSequence;
+import com.cirilgroup.aventurier.model.Position;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class SimulationServiceTest {
 
-    @Mock MapLoader mapLoader;
-    @Mock MoveLoader moveLoader;
-
-    @InjectMocks
-    SimulationService service; // injecte mapLoader & moveLoader
-
-    Path dummyMap = Path.of("any");
-    Path dummyMoves = Path.of("any");
-
     @Test
-    void testRunSimulationHappyPath() throws Exception {
-        // Préparer la carte 3×3 sans obstacle
-        char[][] grid = {
+    void testRunSimulationMovesCorrectly() {
+        Map map = new Map(3, 3, new char[][]{
             {' ', ' ', ' '},
-            {' ', ' ', ' '},
+            {' ', '#', ' '},
             {' ', ' ', ' '}
-        };
-        Map carte = new Map(grid.length, grid[0].length, grid);
-        // Mouvement : partir de (1,1) aller Nord puis Est
-        MoveSequence seq = new MoveSequence(
-            new Position(1,1),
-            List.of(Direction.N, Direction.E)
-        );
+        });
+        Adventurer adventurer = new Adventurer(new Position(0, 0), map);
+        MoveSequence moves = new MoveSequence(new Position(0, 0), List.of(Direction.E, Direction.S, Direction.E));
+        SimulationService service = new SimulationService();
 
-        when(mapLoader.loadMap(dummyMap)).thenReturn(carte);
-        when(moveLoader.loadMoves(dummyMoves)).thenReturn(seq);
-
-        // Exécuter
-        service.loadMap(dummyMap);
-        service.loadMoves(dummyMoves);
-        Position result = service.runSimulation();
-
-        assertEquals(new Position(2,0), result);
-
-        // Vérifier que nos mocks ont bien été appelés
-        verify(mapLoader).loadMap(dummyMap);
-        verify(moveLoader).loadMoves(dummyMoves);
+        Position result = service.runSimulation(adventurer, moves);
+        // Après E (1,0), S (1,1) [obstacle, reste (1,0)], E (2,0)
+        assertEquals(new Position(2, 0), result);
     }
 
     @Test
-    void testRunSimulationWhenLoaderThrows() throws Exception {
-        when(mapLoader.loadMap(dummyMap))
-            .thenThrow(new RuntimeException("fichier manquant"));
+    void testRunSimulationNoMoves() {
+        Map map = new Map(2, 2, new char[][]{{' ', ' '}, {' ', ' '}});
+        Adventurer adventurer = new Adventurer(new Position(1, 1), map);
+        MoveSequence moves = new MoveSequence(new Position(1, 1), List.of());
+        SimulationService service = new SimulationService();
 
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> {
-            service.loadMap(dummyMap);
-            service.loadMoves(dummyMoves);
-            service.runSimulation();
-        });
-
-        assertTrue(ex.getMessage().contains("fichier manquant"));
+        Position result = service.runSimulation(adventurer, moves);
+        assertEquals(new Position(1, 1), result);
     }
 }

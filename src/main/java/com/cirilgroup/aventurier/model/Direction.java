@@ -10,6 +10,7 @@ package com.cirilgroup.aventurier.model;
  * Par exemple, N correspond à (0, -1) ce qui signifie
  * qu'on ne change pas la coordonnée x mais on diminue
  * la coordonnée y de 1.
+ * 
  * @author Ciril Group
  * @version 1.0
  */

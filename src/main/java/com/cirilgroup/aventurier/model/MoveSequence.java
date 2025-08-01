@@ -10,6 +10,7 @@ import java.util.Objects;
  * à la position de départ et aux directions.
  * Elle implémente les méthodes equals, hashCode et toString
  * pour une comparaison et une représentation appropriées.
+ * 
  * @author Ciril Group
  * @version 1.0
  */
@@ -32,8 +33,10 @@ public class MoveSequence {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MoveSequence)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof MoveSequence))
+            return false;
         MoveSequence that = (MoveSequence) o;
         return Objects.equals(start, that.start) && Objects.equals(directions, that.directions);
     }

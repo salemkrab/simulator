@@ -2,6 +2,7 @@ package com.cirilgroup.aventurier.exceptions;
 
 /**
  * Exception jetée lorsque la simulation échoue.
+ * 
  * @author Ciril Group
  * @version 1.0
  */
